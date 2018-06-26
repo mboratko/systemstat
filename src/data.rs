@@ -13,6 +13,7 @@ use std::ops::Sub;
 /// A wrapper for a measurement that takes time.
 ///
 /// Time should pass between getting the object and calling .done() on it.
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct DelayedMeasurement<T> {
     res: Box<Fn() -> io::Result<T>>,
 }
@@ -31,10 +32,12 @@ impl<T> DelayedMeasurement<T> {
 
 #[cfg(not(target_os = "linux"))]
 #[derive(Debug, Clone)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct PlatformCpuLoad {}
 
 #[cfg(target_os = "linux")]
 #[derive(Debug, Clone)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct PlatformCpuLoad {
     pub iowait: f32
 }
@@ -84,6 +87,7 @@ impl PlatformCpuLoad {
 }
 
 #[derive(Debug, Clone)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct CPULoad {
     pub user: f32,
     pub nice: f32,
@@ -108,6 +112,7 @@ impl CPULoad {
 }
 
 #[derive(Debug, Clone, Copy)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct CpuTime {
     pub user: usize,
     pub nice: usize,
@@ -159,6 +164,7 @@ impl CpuTime {
 }
 
 #[derive(Debug, Clone)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct LoadAverage {
     pub one: f32,
     pub five: f32,
@@ -167,6 +173,7 @@ pub struct LoadAverage {
 
 #[cfg(target_os = "windows")]
 #[derive(Debug, Clone)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct PlatformMemory {
     pub load: u32,
     pub total_phys: ByteSize,
@@ -180,6 +187,7 @@ pub struct PlatformMemory {
 
 #[cfg(target_os = "freebsd")]
 #[derive(Debug, Clone)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct PlatformMemory {
     pub active: ByteSize,
     pub inactive: ByteSize,
@@ -191,6 +199,7 @@ pub struct PlatformMemory {
 
 #[cfg(target_os = "openbsd")]
 #[derive(Debug, Clone)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct PlatformMemory {
     pub active: ByteSize,
     pub inactive: ByteSize,
@@ -202,6 +211,7 @@ pub struct PlatformMemory {
 
 #[cfg(target_os = "macos")]
 #[derive(Debug, Clone)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct PlatformMemory {
     pub active: ByteSize,
     pub inactive: ByteSize,
@@ -212,11 +222,13 @@ pub struct PlatformMemory {
 
 #[cfg(target_os = "linux")]
 #[derive(Debug, Clone)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct PlatformMemory {
     pub meminfo: BTreeMap<String, ByteSize>,
 }
 
 #[derive(Debug, Clone)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct Memory {
     pub total: ByteSize,
     pub free: ByteSize,
@@ -224,12 +236,14 @@ pub struct Memory {
 }
 
 #[derive(Debug, Clone)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct BatteryLife {
     pub remaining_capacity: f32,
     pub remaining_time: Duration,
 }
 
 #[derive(Debug, Clone)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct Filesystem {
     pub files: usize,
     pub files_total: usize,
@@ -244,6 +258,7 @@ pub struct Filesystem {
 }
 
 #[derive(Debug, Clone)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct BlockDeviceStats {
     pub name: String,
     pub read_ios: usize,
@@ -260,6 +275,7 @@ pub struct BlockDeviceStats {
 }
 
 #[derive(Debug, Clone, PartialEq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum IpAddr {
     Empty,
     Unsupported,
@@ -268,18 +284,21 @@ pub enum IpAddr {
 }
 
 #[derive(Debug, Clone)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct NetworkAddrs {
     pub addr: IpAddr,
     pub netmask: IpAddr,
 }
 
 #[derive(Debug, Clone)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct Network {
     pub name: String,
     pub addrs: Vec<NetworkAddrs>,
 }
 
 #[derive(Debug, Clone)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct NetworkStats {
     pub rx_bytes: usize,
     pub tx_bytes: usize,
@@ -290,6 +309,7 @@ pub struct NetworkStats {
 }
 
 #[derive(Debug, Clone)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct SocketStats {
     pub tcp_sockets_in_use: usize,
     pub tcp_sockets_orphaned: usize,

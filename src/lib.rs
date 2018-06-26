@@ -12,6 +12,8 @@ extern crate lazy_static;
 #[cfg(target_os = "linux")]
 #[macro_use]
 extern crate nom;
+#[cfg(feature = "serde")]
+extern crate serde;
 
 pub mod platform;
 pub mod data;
