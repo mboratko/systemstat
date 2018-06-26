@@ -13,7 +13,6 @@ use std::ops::Sub;
 /// A wrapper for a measurement that takes time.
 ///
 /// Time should pass between getting the object and calling .done() on it.
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct DelayedMeasurement<T> {
     res: Box<Fn() -> io::Result<T>>,
 }

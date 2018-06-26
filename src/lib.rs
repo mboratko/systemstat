@@ -13,6 +13,7 @@ extern crate lazy_static;
 #[macro_use]
 extern crate nom;
 #[cfg(feature = "serde")]
+#[macro_use]
 extern crate serde;
 
 pub mod platform;
